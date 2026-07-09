@@ -1,0 +1,148 @@
+# Workflow
+
+Follow this workflow exactly. Each stage ends with a user review question before moving to the next stage.
+
+## 1. Confirm requirements
+
+Parse the user's request and collect missing key details:
+
+- topic and background;
+- presentation goal: what the audience should understand, believe, decide, or do;
+- audience: executives, customers, internal team, review panel, investors, or another group;
+- duration and approximate slide count;
+- information density: high, medium, or low;
+- preferred visual style or reference material;
+- source material, facts, data, cases, and constraints;
+- output language and tone;
+- whether to reserve a small LOGO area in the upper-left or upper-right corner, or no LOGO area;
+- any content that must not be invented.
+
+If the user is unsure, recommend practical defaults:
+
+- duration: 10 minutes;
+- slide count: 8-12 pages;
+- information density: medium;
+- style: clean McKinsey-style consulting deck with restrained color, strong hierarchy, and chart-like logic.
+- LOGO area: no reserved LOGO area unless the user asks; if they want it, recommend a small upper-right area for corporate decks and upper-left for brand-led decks.
+
+Then summarize the brief, including the LOGO-space decision, and ask: "以上需求和假设是否需要修改？确认后我会生成总纲和分页大纲。"
+
+## 2. Research and outline
+
+Use the user's source material first. If internet research is requested or required for current facts, browse and cite sources in the final summary.
+
+Create:
+
+- master outline: core answer, main logic chain, issue tree, and section flow;
+- page-by-page outline: one page per slide, with complete logic notes.
+
+Ask: "这个总纲和分页大纲是否需要调整？确认后我会生成每页的 image-2 提示词。"
+
+## 3. Expand outline content
+
+After the user approves the master outline and page-by-page outline, expand the content before prompt writing.
+
+For each slide, produce:
+
+- expanded content: richer explanation of the page's message, evidence, implications, and examples;
+- example ideas: practical examples, analogies, or mini-scenarios that make the point concrete;
+- visual emphasis: what the generated image should make most obvious;
+- speaking hints: brief notes that may help final speaker-note writing later, but do not output the final talk track yet.
+
+Do not output the final speaker notes in this stage. Final notes must be written after image generation and HTML assembly, using the approved outline and the final generated images.
+
+Ask: "拓展后的内容、例子和视觉重点是否需要调整？确认后我会先和你确认图片风格，再生成每页的 image-2 提示词。"
+
+## 4. Confirm visual style
+
+Before writing image-2 prompts, ask the user what visual style they want. Recommend options based on the context instead of using a fixed list.
+
+Common options include:
+
+- 培训风：更亲和，结构清楚，适合课程、工作坊、内部分享；
+- 汇报风：更克制、专业、结论先行，适合管理层汇报和项目汇报；
+- 多插画：画面更有故事性和亲和力，适合传播、培训、文化类主题；
+- 多图形：更多框架图、流程图、矩阵、图表，适合战略、经营、方案类主题；
+- 科技感：更适合 AI、数字化、产品技术主题；
+- 品牌简洁风：留白更多，适合客户沟通、品牌展示、对外路演。
+
+Recommend 2-4 options that fit the user's topic, audience, duration, and information density, then ask: "你更倾向哪种图片风格？确认后我会把这个风格锁定到整套 image-2 提示词中。"
+
+## 5. Write image-2 prompts
+
+Before writing per-page prompts, define one deck-wide style lock. Apply it to every prompt.
+
+For each slide, write one self-contained image-2 prompt that includes:
+
+- shared style lock;
+- single-slide 16:9 instruction;
+- LOGO-space instruction if the user requested one;
+- page logic;
+- expanded content and speaker-note intent where useful;
+- the thought and content this page should express, including recommended title, key messages, labels, and emphasis;
+- composition and visual structure;
+- negative constraints.
+
+Ask: "这些 image-2 提示词是否需要修改？确认后我会批量生成 PPT 图片。"
+
+## 6. Batch-generate images
+
+Generate exactly one 16:9 image per slide with image-2.
+
+Use ordered filenames when files can be saved locally:
+
+```text
+images/slide-01.png
+images/slide-02.png
+images/slide-03.png
+```
+
+If local saving is not supported by the active image tool, explain the limitation and provide the generated previews or prompt set.
+
+Do not ask whether to create HTML. If local image files exist, proceed directly to HTML assembly.
+
+## 7. Automatically assemble playable HTML slideshow
+
+After generating local slide images, automatically:
+
+- create an output folder with `index.html` and `assets/`;
+- copy or reference the final slide images in order as `assets/slide-01.png`, `assets/slide-02.png`, etc.;
+- generate a full-viewport 16:9 player modeled after `C:\project\img-ppt\ai-course-html\index.html`;
+- include previous/next buttons, click zones, keyboard navigation, progress display, and fullscreen support;
+- keep each image inside a 16:9 frame with `object-fit: contain`;
+- do not alter the slide images while assembling the HTML.
+
+Use `scripts/generate-html-player.mjs` when local image files are available. If images are not local files, explain that HTML assembly requires local image files and ask the user to provide them.
+
+## 8. Write final speaker notes
+
+After final images and HTML are ready, write the final speaker notes page by page. Use:
+
+- the confirmed brief;
+- the master outline and page-by-page outline;
+- expanded content and examples;
+- the final generated slide images and what each image visually emphasizes.
+
+For every slide, provide:
+
+- `pageNumber`;
+- `imagePath`;
+- `talkTrack`: an oral, natural, sincere, friendly script;
+- `exampleLines`: optional examples, analogies, or mini-scenarios that make the point concrete;
+- `transition`: a conversational bridge to the next page.
+
+Speaker notes should sound like a person presenting to the target audience. Use short sentences, warm phrasing, and concrete examples. Avoid report-style prose, slogans, stiff corporate language, and reading every visible word on the slide.
+
+Ask at the end: "已生成图片、HTML 播放器和逐页讲稿。是否有页面、HTML 播放效果或讲稿需要调整？"
+
+## Revision handling
+
+- Requirement edits require revising the outline, prompts, and images.
+- Outline edits require revising affected expanded content, prompts, images, HTML, and final speaker notes.
+- Final speaker-note edits require revising prompts only if visible text, page logic, or visual emphasis changes.
+- Style edits require revising all prompts, images, HTML, and final speaker notes unless the user limits the change to specific pages.
+- Prompt edits require regenerating affected images.
+- Image feedback should be applied page by page when possible.
+- HTML output must be regenerated after any final image change.
+
+This skill stops at PPT-style images, playable HTML, and final speaker notes. Do not assemble a PPTX.
