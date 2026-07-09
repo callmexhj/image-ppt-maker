@@ -1,0 +1,75 @@
+---
+name: image-ppt-maker
+description: "Create PPT-style images through a human-in-the-loop workflow: clarify presentation requirements including optional top-corner LOGO space, research and draft McKinsey-style master and page-by-page outlines, expand page content, confirm the desired visual style before image prompts, write unified-style image-2 prompts, batch-generate 16:9 slide images, automatically assemble the images into a playable 16:9 HTML slideshow, and finally write oral speaker notes based on the outline and final images. Use for PPT风格图片, PPT图片生成, image-2幻灯片图片, 麦肯锡式分页大纲, 口语化讲稿, 批量生成演示页图片, HTML播放版演示, or presentation image prompt workflows. This skill does not assemble PPTX files."
+---
+
+# Image PPT Maker
+
+Help users create a set of PPT-style slide images with image-2. Use a strict review-gated workflow:
+
+1. Confirm requirements.
+2. Build a McKinsey-style master outline and page-by-page outline.
+3. Expand the outline content.
+4. Confirm the desired visual style for the images.
+5. Write unified-style image-2 prompts.
+6. Batch-generate 16:9 PPT images.
+7. Automatically assemble the generated images into a playable 16:9 HTML slideshow.
+8. Write final oral speaker notes based on the approved outline and final images.
+
+Ask the user whether they want changes at each review gate. Do not ask before HTML assembly; generate the HTML player automatically after final images are available.
+
+## Required References
+
+- Read [workflow.md](references/workflow.md) before starting any task.
+- Read [mckinsey-outline.md](references/mckinsey-outline.md) before drafting or revising outlines.
+- Read [image-2-prompts.md](references/image-2-prompts.md) before writing prompts or generating images.
+- Use [generate-html-player.mjs](scripts/generate-html-player.mjs) only when the user asks for a playable HTML output after images exist.
+
+## Core Rules
+
+1. Use the user's language for questions and deliverables unless they specify another deck language.
+2. If key information is missing, ask concise questions before outlining: topic, goal, audience, style, duration, slide count, information density, source material, constraints, and whether to reserve a small LOGO area in the upper-left or upper-right corner.
+3. Summarize the confirmed brief and ask whether the user has changes before creating the outline.
+4. Use McKinsey-style logic: answer first, issue-tree thinking, MECE where practical, one governing thought per slide, and a clear so what.
+5. Every page in the outline must include logic notes. Do not create title-only or decorative pages.
+6. After the outline is approved, expand each page with richer content, examples, implications, and visual emphasis. Do not output speaker notes yet.
+7. Before writing image prompts, ask the user what visual style they prefer and recommend context-aware options such as training style, executive report style, illustration-heavy, graphic/chart-heavy, product demo style, or other suitable options.
+8. Generate one image per slide, 16:9, with image-2. Do not create final slide images with SVG, HTML, screenshots, local drawing, PowerPoint export, or montage workflows.
+9. After image generation, automatically generate a playable 16:9 HTML slideshow from the final images when local image files exist.
+10. After HTML assembly, write final per-slide speaker notes based on the approved outline and the generated images. The notes must sound oral, natural, sincere, friendly, and example-driven.
+11. This skill does not assemble PPTX files. Stop at generated images, HTML slideshow, prompt records, final speaker notes, and revision notes.
+12. Preserve approved work during revisions. Only regenerate the affected downstream artifacts.
+
+## Workflow Gates
+
+Do not skip these review points:
+
+- After requirement parsing: ask whether the brief and assumptions need changes.
+- After the master outline and page-by-page outline: ask whether the storyline, page count, or logic needs changes.
+- After the expanded outline content: ask whether the content depth, examples, or emphasis needs changes.
+- Before writing image-2 prompts: ask which visual style the user prefers, offering context-aware recommendations.
+- After image-2 prompts: ask whether the style, visible text, or page prompts need changes.
+- After HTML assembly and final speaker notes: ask whether any page, HTML output, or speaker note should be adjusted.
+
+If the user requests changes:
+
+- Requirement changes invalidate outline, prompts, and images.
+- Outline changes invalidate affected expanded content, prompts, images, HTML, and final speaker notes.
+- Visual-style changes invalidate prompts, images, HTML, and final speaker notes.
+- Final speaker-note changes do not invalidate prompts, images, or HTML unless the visible slide content or logic changes.
+- Prompt or style changes invalidate the affected images.
+- Image issues require regenerating only the affected pages when possible.
+- HTML output must be regenerated if final image filenames, image count, title, or image folder changes.
+
+## Deliverables
+
+When complete, provide:
+
+- confirmed brief;
+- master outline and page-by-page outline;
+- expanded outline content;
+- image-2 prompt set with the shared style lock;
+- generated image paths or previews;
+- playable 16:9 HTML slideshow path;
+- final oral speaker notes based on the outline and generated images;
+- concise notes on pages that may need regeneration.
