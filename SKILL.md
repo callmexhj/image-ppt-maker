@@ -13,17 +13,18 @@ Help users create a set of PPT-style slide images with image-2. Use a strict rev
 4. Confirm the desired visual style for the images.
 5. Write unified-style image-2 prompts.
 6. Batch-generate 16:9 PPT images.
-7. Wait for the image-generation task to finish and verify the files before assembling a playable 16:9 HTML slideshow.
-8. Write final oral speaker notes based on the approved outline and final images.
+7. Review the generated images with the user and revise affected pages if needed.
+8. Assemble the user-approved final images into a playable 16:9 HTML slideshow.
+9. Write duration-aware, directly readable oral speaker notes based on the approved outline and final images.
 
-Ask the user whether they want changes at each review gate. Do not ask before HTML assembly; generate the HTML player automatically after final images are available.
+Ask the user whether they want changes at each review gate. Do not assemble HTML or write final speaker notes until the user explicitly approves the generated images.
 
 ## Required References
 
 - Read [workflow.md](references/workflow.md) before starting any task.
 - Read [mckinsey-outline.md](references/mckinsey-outline.md) before drafting or revising outlines.
 - Read [image-2-prompts.md](references/image-2-prompts.md) before writing prompts or generating images.
-- Use [generate-html-player.mjs](scripts/generate-html-player.mjs) only when the user asks for a playable HTML output after images exist.
+- Use [generate-html-player.mjs](scripts/generate-html-player.mjs) only after the user approves final local images for a playable HTML output.
 
 ## Core Rules
 
@@ -36,10 +37,11 @@ Ask the user whether they want changes at each review gate. Do not ask before HT
 7. Before writing image prompts, ask the user what visual style they prefer and recommend context-aware options such as training style with friendly editorial illustrations, executive report style with restrained illustration accents, illustration-led storytelling with recurring characters and scenes, graphic/chart-heavy, product demo style, or other suitable options.
 8. Generate one image per slide, 16:9, with image-2. Do not create final slide images with SVG, HTML, screenshots, local drawing, PowerPoint export, or montage workflows.
 9. Treat image generation as a long-running operation. Do not interpret a quiet period, a partial preview, or a tool call with no immediate new image as failure. Keep the generation task alive, wait for its final completion signal, inspect the output directory for newly completed files, and report progress without triggering a duplicate generation. Retry only after an explicit tool failure, confirmed timeout, or confirmed missing/corrupt output after completion.
-10. After image generation, automatically generate a playable 16:9 HTML slideshow from the final images when local image files exist.
-11. After HTML assembly, write final per-slide speaker notes based on the approved outline and the generated images. The notes must sound oral, natural, sincere, friendly, and example-driven.
-12. This skill does not assemble PPTX files. Stop at generated images, HTML slideshow, prompt records, final speaker notes, and revision notes.
-13. Preserve approved work during revisions. Only regenerate the affected downstream artifacts.
+10. After image generation, present the final image paths or previews and ask the user whether any page needs adjustment. Do not assemble HTML or write final speaker notes until the user explicitly approves the images.
+11. After the user approves the images, automatically generate a playable 16:9 HTML slideshow from the final local images.
+12. After HTML assembly, write final per-slide speaker notes based on the approved outline and final images. Allocate page-level speaking time to match the confirmed duration, and write a complete, directly readable oral script for each page.
+13. This skill does not assemble PPTX files. Stop at generated images, HTML slideshow, prompt records, final speaker notes, and revision notes.
+14. Preserve approved work during revisions. Only regenerate the affected downstream artifacts.
 
 ## Workflow Gates
 
@@ -50,7 +52,8 @@ Do not skip these review points:
 - After the expanded outline content: ask whether the content depth, examples, or emphasis needs changes.
 - Before writing image-2 prompts: ask which visual style the user prefers, offering context-aware recommendations that include concrete illustration directions when illustration is suitable.
 - After image-2 prompts: ask whether the style, visible text, or page prompts need changes.
-- After HTML assembly and final speaker notes: ask whether any page, HTML output, or speaker note should be adjusted.
+- After image generation: present the completed images and ask whether any page needs changes; wait for explicit approval before HTML assembly and final speaker notes.
+- After HTML assembly and final speaker notes: ask whether any HTML output or speaker note should be adjusted.
 
 If the user requests changes:
 
@@ -59,7 +62,7 @@ If the user requests changes:
 - Visual-style changes invalidate prompts, images, HTML, and final speaker notes.
 - Final speaker-note changes do not invalidate prompts, images, or HTML unless the visible slide content or logic changes.
 - Prompt or style changes invalidate the affected images.
-- Image issues require regenerating only the affected pages when possible.
+- Image issues require regenerating only the affected pages when possible; re-run the image review gate after every image revision.
 - HTML output must be regenerated if final image filenames, image count, title, or image folder changes.
 
 ## Deliverables
