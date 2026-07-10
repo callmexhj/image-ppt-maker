@@ -47,7 +47,29 @@
 
 ## 安装方式
 
-### 方式一：直接 clone 到 Codex skills 目录
+### 方式一：通过 ClawHub 安装（OpenClaw）
+
+安装到当前 OpenClaw 工作区：
+
+```bash
+openclaw skills install @callmexhj/image-ppt-maker
+```
+
+全局安装，供本机所有 OpenClaw 智能体使用：
+
+```bash
+openclaw skills install @callmexhj/image-ppt-maker --global
+```
+
+后续更新全局安装的技能：
+
+```bash
+openclaw skills update @callmexhj/image-ppt-maker --global
+```
+
+该方式适用于 OpenClaw；若在 Codex 中使用，请继续选择下面的手动安装方式。
+
+### 方式二：直接 clone 到 Codex skills 目录
 
 Windows PowerShell：
 
@@ -61,7 +83,7 @@ macOS/Linux：
 git clone https://github.com/callmexhj/image-ppt-maker.git ~/.codex/skills/image-ppt-maker
 ```
 
-### 方式二：下载 ZIP
+### 方式三：下载 ZIP
 
 1. 在 GitHub 页面点击 Download ZIP。
 2. 解压后将文件夹改名为 `image-ppt-maker`。
@@ -69,7 +91,7 @@ git clone https://github.com/callmexhj/image-ppt-maker.git ~/.codex/skills/image
    - Windows：`%USERPROFILE%\.codex\skills\image-ppt-maker`
    - macOS/Linux：`~/.codex/skills/image-ppt-maker`
 
-### 方式三：从本地目录复制
+### 方式四：从本地目录复制
 
 Windows PowerShell：
 
