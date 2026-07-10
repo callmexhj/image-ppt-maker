@@ -46,7 +46,29 @@ Model names and availability change over time. Check your provider's current doc
 
 ## Installation
 
-### Option 1: Clone Directly Into Codex Skills
+### Option 1: Install from ClawHub (OpenClaw)
+
+Install into the current OpenClaw workspace:
+
+```bash
+openclaw skills install @callmexhj/image-ppt-maker
+```
+
+Install globally for all local OpenClaw agents:
+
+```bash
+openclaw skills install @callmexhj/image-ppt-maker --global
+```
+
+Update the globally installed skill later:
+
+```bash
+openclaw skills update @callmexhj/image-ppt-maker --global
+```
+
+This method is for OpenClaw. For Codex, use one of the manual installation methods below.
+
+### Option 2: Clone Directly Into Codex Skills
 
 PowerShell:
 
@@ -60,7 +82,7 @@ macOS/Linux:
 git clone https://github.com/callmexhj/image-ppt-maker.git ~/.codex/skills/image-ppt-maker
 ```
 
-### Option 2: Download ZIP
+### Option 3: Download ZIP
 
 1. Download this repository as a ZIP from GitHub.
 2. Extract it.
@@ -69,7 +91,7 @@ git clone https://github.com/callmexhj/image-ppt-maker.git ~/.codex/skills/image
    - Windows: `%USERPROFILE%\.codex\skills\image-ppt-maker`
    - macOS/Linux: `~/.codex/skills/image-ppt-maker`
 
-### Option 3: Copy From a Local Checkout
+### Option 4: Copy From a Local Checkout
 
 PowerShell:
 
