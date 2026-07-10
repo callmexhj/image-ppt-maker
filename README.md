@@ -23,9 +23,9 @@ It is designed for people who want the visual impact of a slide deck without spe
 3. Expand each page with richer content, examples, and visual emphasis.
 4. Ask the user to choose a visual style, with recommendations based on context.
 5. Generate unified image prompts for the selected image model.
-6. Generate one 16:9 slide image per page.
-7. Automatically create a playable 16:9 HTML slideshow.
-8. Write final speaker notes based on the approved outline and generated images.
+6. Generate one 16:9 slide image per page, then review the completed images with the user.
+7. After image approval, automatically create a playable 16:9 HTML slideshow.
+8. Write duration-aware, directly readable speaker notes based on the approved outline and final images.
 
 ## Requirements
 
