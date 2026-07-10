@@ -46,6 +46,8 @@ Do not constrain the slide by enumerating every allowed visible word. Instead, d
 - Do not render prompt section labels or internal reasoning labels such as "Style lock", "Slide logic", "Expanded content", "Page message and content", "McKinsey-style", "16:9", "professional consulting-style", or "image-2".
 - If a style concept needs to show visually, express it through layout, color, spacing, chart treatment, and imagery, not through written words.
 - If a LOGO area is reserved, it is a blank layout area unless the user supplies a logo. Do not render placeholder text such as "LOGO".
+- Slide sequence numbers are file-management metadata only. Do not render page numbers, slide numbers, sequence labels, numeric badges, or file names anywhere in the image unless a number is explicitly part of the approved page content.
+- For illustration-led styles, express the approved visual direction through recurring characters, coherent scenes, consistent linework or rendering, and visual metaphors; do not write the style name or illustration instructions on the slide.
 
 Add this sentence to every prompt:
 
@@ -62,6 +64,7 @@ Always forbid:
 - browser screenshot, app screenshot, chat screenshot, or document screenshot;
 - long paragraphs, dense report prose, or text that does not support the page's governing thought;
 - any visible wording copied from style descriptions, prompt section labels, or generation instructions;
+- page numbers, slide numbers, sequence labels, numeric badges, or file names added only to identify the image;
 - meta words such as style lock, deck-wide style, 16:9, image-2, prompt, McKinsey-style, typography, palette, layout system, consulting-style, Page message and content, or LOGO;
 - watermark, signature, logo, model mark, or random brand mark;
 - random icons, people, company names, or data not provided or approved;
