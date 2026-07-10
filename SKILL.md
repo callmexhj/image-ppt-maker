@@ -13,7 +13,7 @@ Help users create a set of PPT-style slide images with image-2. Use a strict rev
 4. Confirm the desired visual style for the images.
 5. Write unified-style image-2 prompts.
 6. Batch-generate 16:9 PPT images.
-7. Automatically assemble the generated images into a playable 16:9 HTML slideshow.
+7. Wait for the image-generation task to finish and verify the files before assembling a playable 16:9 HTML slideshow.
 8. Write final oral speaker notes based on the approved outline and final images.
 
 Ask the user whether they want changes at each review gate. Do not ask before HTML assembly; generate the HTML player automatically after final images are available.
@@ -33,12 +33,13 @@ Ask the user whether they want changes at each review gate. Do not ask before HT
 4. Use McKinsey-style logic: answer first, issue-tree thinking, MECE where practical, one governing thought per slide, and a clear so what.
 5. Every page in the outline must include logic notes. Do not create title-only or decorative pages.
 6. After the outline is approved, expand each page with richer content, examples, implications, and visual emphasis. Do not output speaker notes yet.
-7. Before writing image prompts, ask the user what visual style they prefer and recommend context-aware options such as training style, executive report style, illustration-heavy, graphic/chart-heavy, product demo style, or other suitable options.
+7. Before writing image prompts, ask the user what visual style they prefer and recommend context-aware options such as training style with friendly editorial illustrations, executive report style with restrained illustration accents, illustration-led storytelling with recurring characters and scenes, graphic/chart-heavy, product demo style, or other suitable options.
 8. Generate one image per slide, 16:9, with image-2. Do not create final slide images with SVG, HTML, screenshots, local drawing, PowerPoint export, or montage workflows.
-9. After image generation, automatically generate a playable 16:9 HTML slideshow from the final images when local image files exist.
-10. After HTML assembly, write final per-slide speaker notes based on the approved outline and the generated images. The notes must sound oral, natural, sincere, friendly, and example-driven.
-11. This skill does not assemble PPTX files. Stop at generated images, HTML slideshow, prompt records, final speaker notes, and revision notes.
-12. Preserve approved work during revisions. Only regenerate the affected downstream artifacts.
+9. Treat image generation as a long-running operation. Do not interpret a quiet period, a partial preview, or a tool call with no immediate new image as failure. Keep the generation task alive, wait for its final completion signal, inspect the output directory for newly completed files, and report progress without triggering a duplicate generation. Retry only after an explicit tool failure, confirmed timeout, or confirmed missing/corrupt output after completion.
+10. After image generation, automatically generate a playable 16:9 HTML slideshow from the final images when local image files exist.
+11. After HTML assembly, write final per-slide speaker notes based on the approved outline and the generated images. The notes must sound oral, natural, sincere, friendly, and example-driven.
+12. This skill does not assemble PPTX files. Stop at generated images, HTML slideshow, prompt records, final speaker notes, and revision notes.
+13. Preserve approved work during revisions. Only regenerate the affected downstream artifacts.
 
 ## Workflow Gates
 
@@ -47,7 +48,7 @@ Do not skip these review points:
 - After requirement parsing: ask whether the brief and assumptions need changes.
 - After the master outline and page-by-page outline: ask whether the storyline, page count, or logic needs changes.
 - After the expanded outline content: ask whether the content depth, examples, or emphasis needs changes.
-- Before writing image-2 prompts: ask which visual style the user prefers, offering context-aware recommendations.
+- Before writing image-2 prompts: ask which visual style the user prefers, offering context-aware recommendations that include concrete illustration directions when illustration is suitable.
 - After image-2 prompts: ask whether the style, visible text, or page prompts need changes.
 - After HTML assembly and final speaker notes: ask whether any page, HTML output, or speaker note should be adjusted.
 
