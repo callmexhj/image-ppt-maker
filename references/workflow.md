@@ -61,7 +61,9 @@ Common options include:
 
 - 培训风：更亲和，结构清楚，适合课程、工作坊、内部分享；
 - 汇报风：更克制、专业、结论先行，适合管理层汇报和项目汇报；
-- 多插画：画面更有故事性和亲和力，适合传播、培训、文化类主题；
+- 培训插画风：在清晰的咨询式结构中加入友好人物、课堂/工作场景、轻量叙事插画和统一笔触，适合课程、工作坊、内部分享；
+- 插画叙事风：用连续出现的角色、场景和视觉隐喻讲清问题变化，搭配少量结构化图形，适合传播、培训、文化和用户故事类主题；
+- 汇报插画风：保持结论先行和克制留白，用少量高质量场景插画解释复杂概念，适合管理层汇报中需要提升亲和力的主题；
 - 多图形：更多框架图、流程图、矩阵、图表，适合战略、经营、方案类主题；
 - 科技感：更适合 AI、数字化、产品技术主题；
 - 品牌简洁风：留白更多，适合客户沟通、品牌展示、对外路演。
@@ -89,6 +91,16 @@ Ask: "这些 image-2 提示词是否需要修改？确认后我会批量生成 P
 
 Generate exactly one 16:9 image per slide with image-2.
 
+Generation may take many minutes. When generating several pages in parallel or in a batch:
+
+- announce that the operation is long-running and that no immediate new preview does not mean generation failed;
+- keep the original generation task running and wait for its final return/completion signal;
+- monitor completed files or returned images without launching a second batch;
+- preserve already completed pages and report the current count when progress is available;
+- retry only after explicit failure, confirmed timeout, or confirmed missing/corrupt output after the task has ended.
+
+Never claim that a batch failed merely because it has been quiet for a while. Never start a duplicate batch while the original task may still be producing images.
+
 Use ordered filenames when files can be saved locally:
 
 ```text
@@ -98,6 +110,8 @@ images/slide-03.png
 ```
 
 If local saving is not supported by the active image tool, explain the limitation and provide the generated previews or prompt set.
+
+The ordered filename is for storage and HTML sequencing only. It must never be rendered inside the slide image. Do not put slide numbers, page numbers, sequence labels, numeric badges, or file names in the title, footer, corner, diagram, timeline, or any other visible area unless the user explicitly requires a number as part of the page content.
 
 Do not ask whether to create HTML. If local image files exist, proceed directly to HTML assembly.
 
