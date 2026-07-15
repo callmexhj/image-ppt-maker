@@ -58,6 +58,12 @@ For each page, include:
 
 Do not write the final speaker notes at this stage. Final notes must be written after images are generated, using the approved outline and the final visual output.
 
+## Single-page revisions
+
+For every later single-page change, recreate the affected page using the same page-by-page outline and expanded-content fields above. Preserve the approved deck-wide storyline and style, but reconsider the page's governing thought, support, so what, transition, examples, visual emphasis, and speaking-time allocation in light of the new request.
+
+Present the consolidated revised page content for user approval before generating the replacement image. Do not treat raw image feedback as sufficient approval to regenerate.
+
 ## Final speaker notes
 
 After the final images and HTML player are generated, write page-by-page speaker notes.
@@ -69,3 +75,4 @@ Speaker notes must:
 - explain the point with concrete examples when useful;
 - refer naturally to what the audience can see on the generated page;
 - avoid over-polished slogans, dense jargon, and reading every slide label.
+
