@@ -22,10 +22,12 @@ It is designed for people who want the visual impact of a slide deck without spe
 2. Draft a McKinsey-style master outline and page-by-page outline.
 3. Expand each page with richer content, examples, and visual emphasis.
 4. Ask the user to choose a visual style, with recommendations based on context.
-5. Generate unified image prompts for the selected image model.
+5. Generate unified image prompts internally and proceed directly to image generation without a prompt-approval step.
 6. Generate one 16:9 slide image per page, then review the completed images with the user.
 7. After image approval, automatically create a playable 16:9 HTML slideshow.
 8. Write duration-aware, directly readable speaker notes based on the approved outline and final images.
+
+For later single-slide changes, the skill rebuilds and confirms that slide's logic, content, examples, and visual emphasis before regenerating its image. It reuses the approved deck style and does not ask for prompt approval.
 
 ## Requirements
 
@@ -136,3 +138,4 @@ The skill can produce:
 - This skill does not assemble `.pptx` files.
 - HTML assembly requires local slide image files.
 - For best results, provide source facts, brand constraints, target audience, duration, and preferred tone.
+
