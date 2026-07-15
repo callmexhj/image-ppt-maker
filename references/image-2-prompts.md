@@ -2,6 +2,8 @@
 
 Write prompts for image-2. Each prompt must generate exactly one 16:9 PPT-style slide image.
 
+Treat prompts as internal execution artifacts. Do not ask the user to review or approve prompts. Generate them after content and style approval, then proceed directly to image generation.
+
 ## Deck-wide style lock
 
 Define one shared style lock before per-page prompts. It must specify:
@@ -81,3 +83,6 @@ images/slide-03.png
 ```
 
 If a page fails visually, revise or regenerate that page only unless the style lock itself changed.
+
+For any later single-page change, wait until the revised page logic, expanded content, and visual emphasis are explicitly approved. Then rebuild that page's prompt with the existing deck-wide style lock and generate only that page without adding a prompt-review step.
+
