@@ -1,6 +1,6 @@
 # Workflow
 
-Follow this workflow exactly. Each stage ends with a user review question before moving to the next stage.
+Follow this workflow exactly. Pause only at the designated review gates. Image-prompt creation is not a review gate.
 
 ## 1. Confirm requirements
 
@@ -36,7 +36,7 @@ Create:
 - master outline: core answer, main logic chain, issue tree, and section flow;
 - page-by-page outline: one page per slide, with complete logic notes and a suggested speaking-time allocation. Allocate the total speaking time across pages according to message importance and complexity; keep the sum aligned with the confirmed duration.
 
-Ask: "这个总纲和分页大纲是否需要调整？确认后我会生成每页的 image-2 提示词。"
+Ask: "这个总纲和分页大纲是否需要调整？确认后我会拓展每页内容。"
 
 ## 3. Expand outline content
 
@@ -85,7 +85,7 @@ For each slide, write one self-contained image-2 prompt that includes:
 - composition and visual structure;
 - negative constraints.
 
-Ask: "这些 image-2 提示词是否需要修改？确认后我会批量生成 PPT 图片。"
+Do not show the prompt set for approval and do not ask whether the prompts need changes. Once the approved page content and style lock are available, proceed directly to batch image generation.
 
 ## 6. Batch-generate images
 
@@ -156,12 +156,27 @@ Ask at the end: "已生成图片、HTML 播放器和逐页讲稿。是否有页�
 
 ## Revision handling
 
+### Mandatory single-page revision loop
+
+Whenever the user requests any later change to one page, run this loop every time, including for small copy, layout, emphasis, example, data, or image corrections:
+
+1. Identify the target page and clarify the requested outcome, required facts, constraints, and unchanged elements. Ask only for missing information.
+2. Reuse the approved deck brief, LOGO decision, surrounding storyline, and complete deck-wide style lock. Do not repeat visual-style confirmation unless the user explicitly requests a style change.
+3. Rebuild that page's page-by-page outline fields: conclusion-style title, key question, governing thought, supporting logic, visual idea, so what, transition, and speaking-time allocation.
+4. Rebuild that page's expanded content, examples, labels, visual emphasis, and any factual constraints.
+5. Present the consolidated revised page content to the user and ask: "这页修改后的逻辑、内容和视觉重点是否确认？确认后我会直接生成该页图片。"
+6. Only after explicit content approval, rebuild the page's image prompt internally with the existing style lock. Do not show or ask the user to approve the prompt.
+7. Generate only the affected page image, preserve all other approved images, and present the new image for review.
+8. If the user requests another change to that page, restart this loop before generating again. Do not patch or regenerate the image directly from the latest feedback.
+9. After the revised image is approved, regenerate the HTML and affected final speaker notes if those downstream artifacts already exist.
+
 - Requirement edits require revising the outline, prompts, and images.
 - Outline edits require revising affected expanded content, prompts, images, HTML, and final speaker notes.
 - Final speaker-note edits require revising prompts only if visible text, page logic, or visual emphasis changes.
 - Style edits require revising all prompts, images, HTML, and final speaker notes unless the user limits the change to specific pages.
-- Prompt edits require regenerating affected images.
-- Image feedback should be applied page by page when possible, followed by another explicit image review before HTML assembly and final speaker-note writing.
+- Internal prompt edits require regenerating affected images, but prompts never require user approval.
+- Image feedback should be applied through the mandatory single-page revision loop, followed by another explicit image review before HTML assembly and final speaker-note writing.
 - HTML output must be regenerated after any final image change.
 
 This skill stops at PPT-style images, playable HTML, and final speaker notes. Do not assemble a PPTX.
+
